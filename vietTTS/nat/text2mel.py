@@ -98,6 +98,7 @@ def text2mel(
     durations = jnp.where(
         np.array(tokens)[None, :] == FLAGS.word_end_index, 0.0, durations
     )
+    durations = durations*17/16.0
     mels = predict_mel(tokens, durations, acoustic_ckpt)
     if tokens[-1] == FLAGS.sil_index:
         end_silence = durations[0, -1].item()
